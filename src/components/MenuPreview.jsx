@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 const MenuPreview = () => {
     return (
-        <section id="menu" className="py-24 bg-neutral-900 border-y border-white/5">
+        <section id="menu" className="py-16 md:py-24 bg-neutral-900 border-y border-white/5">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center gap-12">
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
