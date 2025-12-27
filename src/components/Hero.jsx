@@ -29,7 +29,7 @@ const Hero = () => {
                         <Beer size={18} />
                     </div>
 
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-oswald font-bold text-white mb-2 tracking-tighter shadow-black drop-shadow-lg">
+                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-oswald font-bold text-white mb-2 tracking-tighter shadow-black drop-shadow-lg">
                         TEMPLO DEL <span className="text-transparent bg-clip-text bg-gradient-to-r from-rock-beer to-orange-600">ROCK</span>
                     </h1>
 
