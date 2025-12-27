@@ -15,6 +15,16 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Lock body scroll when menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+    }, [isOpen]);
+
     const navLinks = [
         { name: 'INICIO', href: '#hero' },
         { name: 'ONDA', href: '#vibe' },
@@ -29,13 +39,13 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
                 className={clsx(
-                    "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-8",
+                    "fixed top-0 left-0 w-full z-50 transition-all duration-300",
                     scrolled ? "py-2" : "py-4 md:py-6"
                 )}
             >
                 <div className={clsx(
-                    "container mx-auto flex justify-between items-center rounded-2xl px-6 py-3 transition-all duration-300",
-                    scrolled ? "bg-black/80 backdrop-blur-lg border border-white/10 shadow-2xl" : "bg-transparent"
+                    "mx-4 md:container md:mx-auto flex justify-between items-center rounded-2xl px-6 py-3 transition-all duration-300",
+                    scrolled ? "bg-black/90 backdrop-blur-lg border border-white/10 shadow-2xl" : "bg-black/20 backdrop-blur-sm border border-white/5"
                 )}>
                     {/* Logo */}
                     <a href="#" className="flex items-center gap-2 group z-50">
