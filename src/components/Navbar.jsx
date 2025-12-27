@@ -47,7 +47,37 @@ const Navbar = () => {
                     "mx-4 md:container md:mx-auto flex justify-between items-center rounded-2xl px-6 py-3 transition-all duration-300",
                     scrolled ? "bg-black/90 backdrop-blur-lg border border-white/10 shadow-2xl" : "bg-black/20 backdrop-blur-sm border border-white/5"
                 )}>
-                    {/* Logo */}
+                    {/* Mobile Menu Button - Left Side */}
+                    <button
+                        className="md:hidden text-white hover:text-rock-beer transition-colors z-50 mr-4"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
+
+                    {/* Logo - Pushed slightly right by button margin on mobile, or we can center it? 
+                        Let's just keep it simple: Button - Logo - [Empty]
+                        To do that with flex justify-between, we need 3 items or smart margins.
+                        With justify-between:
+                        Mobile: [Button] [Logo] (This puts Logo on far right)
+                        Desktop: [Logo] [Desktop Menu]
+                        
+                        If user wants menu on left, and presumably Logo center or right?
+                        "hace q el menu este del lado izquierdo" -> Usually means the button.
+                        Let's stick to justify-between.
+                        Mobile: Button (Left) ..... Logo (Right)
+                        Desktop: Logo (Left) ..... Menu (Right) - Wait, button is hidden on desktop.
+                        So on desktop: [Hidden Button] [Logo] [Menu] -> [Logo] [Menu]
+                        
+                        To avoid layout shift on desktop, I should order them carefully.
+                        Desktop: Logo first.
+                        Mobile: Button first.
+                        
+                        I will simply put Button first.
+                        Desktop: Button hidden. Logo (first visible) -> Left. Menu -> Right.
+                        Mobile: Button (visible) -> Left. Logo -> Right.
+                    */}
+
                     <a href="#" className="flex items-center gap-2 group z-50">
                         <div className="font-oswald text-2xl font-bold tracking-wider text-white group-hover:text-rock-beer transition-colors">
                             ROCK ME <span className="text-rock-beer">BEER</span>
@@ -60,30 +90,20 @@ const Navbar = () => {
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="text-sm font-medium tracking-widest text-white/80 hover:text-rock-beer transition-colors"
+                                className="text-sm font-medium tracking-widest text-white/80 hover:text-rock-beer transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-rock-beer after:transition-all hover:after:w-full"
                             >
                                 {link.name}
                             </a>
                         ))}
-                        <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                        <a
                             href="https://wa.me/3541337577"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="bg-rock-beer text-black px-5 py-2 rounded-lg font-oswald font-bold uppercase tracking-wide hover:bg-white transition-colors"
                         >
                             Reservar
-                        </motion.a>
+                        </a>
                     </div>
-
-                    {/* Mobile Menu Button - Now part of the floating bar */}
-                    <button
-                        className="md:hidden text-white hover:text-rock-beer transition-colors z-50"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        {isOpen ? <X size={28} /> : <Menu size={28} />}
-                    </button>
                 </div>
             </motion.nav>
 
@@ -91,9 +111,9 @@ const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, clipPath: "circle(0% at 100% 0)" }}
-                        animate={{ opacity: 1, clipPath: "circle(150% at 100% 0)" }}
-                        exit={{ opacity: 0, clipPath: "circle(0% at 100% 0)" }}
+                        initial={{ opacity: 0, clipPath: "circle(0% at 0% 0)" }}
+                        animate={{ opacity: 1, clipPath: "circle(150% at 0% 0)" }}
+                        exit={{ opacity: 0, clipPath: "circle(0% at 0% 0)" }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                         className="fixed inset-0 z-40 bg-black flex flex-col justify-center items-center md:hidden"
                     >
